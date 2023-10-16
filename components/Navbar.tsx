@@ -2,15 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NavLinks } from "@/constants";
-//import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/session";
 
 import AuthProviders from "./AuthProviders";
 import Button from "./Button";
 import ProfileMenu from "./ProfileMenu";
 
 const Navbar = async () => {
-  //const session = await getCurrentUser();
-  const session = null;
+  const session = await getCurrentUser();
 
   return (
     <nav className="flexBetween navbar">
