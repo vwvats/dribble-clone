@@ -56,15 +56,17 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
   }
 };
 
-export const fetchAllProjects = (category?: string, endcursor?: string) => {
+export const fetchAllProjects = (
+  category?: string | null | undefined,
+  endcursor?: string | null | undefined
+) => {
   client.setHeader("x-api-key", apiKey);
 
-  const query = category ? projectsQuery : getAllProjectsQuery;
-  const variables = category ? { category, endcursor } : { endcursor };
+  if (!category || category === undefined || category === "All") {
+    return makeGraphQLRequest(getAllProjectsQuery, { endcursor });
+  }
 
-  return makeGraphQLRequest(query, variables);
-
-  //return makeGraphQLRequest(projectsQuery, { category, endcursor });
+  return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
 
 export const createNewProject = async (
