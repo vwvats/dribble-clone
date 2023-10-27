@@ -41,6 +41,14 @@ const jwt = auth.JWT({
 
 export default config({
   schema: g,
+  cache: {
+    rules: [
+      {
+        maxAge: 60,
+        types: "Query",
+      },
+    ],
+  },
   auth: {
     providers: [jwt],
     rules: (rules) => rules.private(),
