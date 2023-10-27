@@ -7,6 +7,7 @@ import {
   getProjectByIdQuery,
   getProjectsOfUserQuery,
   getUserQuery,
+  getAllProjectsQuery,
   projectsQuery,
 } from "@/graphql";
 import { ProjectForm } from "@/common.types";
@@ -61,13 +62,10 @@ export const fetchAllProjects = (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  const validCategory = category ?? "";
-  const validCursor = endcursor ?? "";
+  const query = category ? projectsQuery : getAllProjectsQuery;
+  const variables = category ? { category, endcursor } : { endcursor };
 
-  return makeGraphQLRequest(projectsQuery, {
-    category: validCategory,
-    endcursor: validCursor,
-  });
+  return makeGraphQLRequest(query, variables);
 };
 
 export const createNewProject = async (
