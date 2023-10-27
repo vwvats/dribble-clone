@@ -8,7 +8,6 @@ import {
   getProjectsOfUserQuery,
   getUserQuery,
   projectsQuery,
-  getAllProjectsQuery,
 } from "@/graphql";
 import { ProjectForm } from "@/common.types";
 
@@ -62,13 +61,13 @@ export const fetchAllProjects = (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  const cursor = endcursor === undefined ? "" : endcursor;
+  const validCategory = category ?? "";
+  const validCursor = endcursor ?? "";
 
-  if (!category || category === undefined || category === "All") {
-    return makeGraphQLRequest(getAllProjectsQuery, { endcursor: cursor });
-  }
-
-  return makeGraphQLRequest(projectsQuery, { category, endcursor: cursor });
+  return makeGraphQLRequest(projectsQuery, {
+    category: validCategory,
+    endcursor: validCursor,
+  });
 };
 
 export const createNewProject = async (
