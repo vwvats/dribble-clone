@@ -22,7 +22,7 @@ const ProfilePage = ({ user }: Props) => (
         />
         <p className="text-4xl font-bold mt-10">{user?.name}</p>
         <p className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg">
-          I’m Software Engineer at JSM 👋
+          I’m a Dribbble Clone user! 👋
         </p>
 
         <div className="flex mt-8 gap-5 w-full flex-wrap">
@@ -48,30 +48,34 @@ const ProfilePage = ({ user }: Props) => (
         />
       ) : (
         <Image
-          src="/profile-post.png"
-          width={739}
-          height={554}
+          src="/project-placeholder.jpg"
+          width={600}
+          height={450}
           alt="project image"
-          className="rounded-xl"
+          className="rounded-xl object-fit"
         />
       )}
     </section>
 
-    <section className="flexStart flex-col lg:mt-28 mt-16 w-full">
+    <section className="flexStart flex-col lg:mt-28 mt-16 w-full mb-20">
       <p className="w-full text-left text-lg font-semibold">Recent Work</p>
 
       <div className="profile_projects">
-        {user?.projects?.edges?.map(({ node }: { node: ProjectInterface }) => (
-          <ProjectCard
-            key={`${node?.id}`}
-            id={node?.id}
-            image={node?.image}
-            title={node?.title}
-            name={user.name}
-            avatarUrl={user.avatarUrl}
-            userId={user.id}
-          />
-        ))}
+        {user.projects.edges.length === 0 ? (
+          <h4>You haven't added any projects yet!</h4>
+        ) : (
+          user.projects.edges.map(({ node }: { node: ProjectInterface }) => (
+            <ProjectCard
+              key={`${node?.id}`}
+              id={node?.id}
+              image={node?.image}
+              title={node?.title}
+              name={user.name}
+              avatarUrl={user.avatarUrl}
+              userId={user.id}
+            />
+          ))
+        )}
       </div>
     </section>
   </section>
