@@ -65,7 +65,7 @@ export const fetchAllProjects = (
   const cursor = endcursor === undefined ? "" : endcursor;
 
   if (!category || category === undefined || category === "All") {
-    return makeGraphQLRequest(getAllProjectsQuery, { cursor });
+    return makeGraphQLRequest(getAllProjectsQuery, { endcursor: cursor });
   }
 
   return makeGraphQLRequest(projectsQuery, { category, endcursor: cursor });
