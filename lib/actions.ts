@@ -27,10 +27,7 @@ const client = new GraphQLClient(apiUrl);
 
 export const fetchToken = async () => {
   try {
-    //const response = await fetch(`${serverUrl}/api/auth/token`);
-    const response = await fetch(
-      "https://dribble-clone-r55s3wohv-vwvats.vercel.app/api/auth/token"
-    );
+    const response = await fetch(`${serverUrl}/api/auth/token`);
     return response.json();
   } catch (err) {
     throw err;
