@@ -19,15 +19,12 @@ const apiUrl = isProduction
 const apiKey = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
   : "letmein";
-const serverUrl = isProduction
-  ? process.env.NEXT_PUBLIC_SERVER_URL
-  : "http://localhost:3000";
 
 const client = new GraphQLClient(apiUrl);
 
 export const fetchToken = async () => {
   try {
-    const response = await fetch(`${serverUrl}/api/auth/token`);
+    const response = await fetch("/api/auth/token");
     return response.json();
   } catch (err) {
     throw err;
@@ -36,7 +33,7 @@ export const fetchToken = async () => {
 
 export const uploadImage = async (imagePath: string) => {
   try {
-    const response = await fetch(`${serverUrl}/api/upload`, {
+    const response = await fetch("/api/upload", {
       method: "POST",
       body: JSON.stringify({
         path: imagePath,
